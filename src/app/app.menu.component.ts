@@ -12,9 +12,7 @@ import { AppMainComponent } from './app.main.component';
                         <li app-menuitem *ngFor="let child of item.items" [item]="child" [index]="i" role="none"></li>
                     </ul>
                 </li>
-                <a href="https://www.primefaces.org/primeblocks-ng/#/">
-                    <img src="assets/layout/images/{{appMain.config.dark ? 'banner-primeblocks-dark' : 'banner-primeblocks'}}.png" alt="Prime Blocks" class="w-full mt-3"/>
-                </a>
+               
             </ul>
         </div>
     `
@@ -34,10 +32,12 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'UI Components',
+                label: 'Actividades',
                 items: [
-                    {label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
-                    {label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input']},
+                    {label: 'Asignación de Tareas', icon: 'pi pi-fw pi-id-card', routerLink: ['/asignacion']},
+                    {label: 'Registro de Actividades', icon: 'pi pi-fw pi-check-square', routerLink: ['/registroActividades']},
+                    {label: 'Actividades Correctivas', icon: 'pi pi-thumbs-down', routerLink: ['/ActividadesCorrectivas']},
+                    /* 
                     {label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel']},
                     {label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/uikit/invalidstate']},
                     {label: 'Button', icon: 'pi pi-fw pi-mobile', routerLink: ['/uikit/button'], class: 'rotated-icon'},
@@ -51,36 +51,36 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message']},
                     {label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file']},
                     {label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts']},
-                    {label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc']}
+                    {label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc']}*/
                 ]
             },
-            {
-                label:'Prime Blocks',
+            /* {
+               label:'Prime Blocks',
                 items:[
                     {label: 'Free Blocks', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW'},
                     {label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: ['https://www.primefaces.org/primeblocks-ng'], target: '_blank'},
                 ]
-            },
-            {label:'Utilities',
+            },*/
+            /* {label:'Utilities',
                 items:[
                     {label: 'PrimeIcons', icon: 'pi pi-fw pi-prime', routerLink: ['/icons']},
                     {label: 'PrimeFlex', icon: 'pi pi-fw pi-desktop', url: ['https://www.primefaces.org/primeflex/'], target: '_blank'},
                 ]
-            },
+            },*/
             {
-                label: 'Pages',
+                label: 'Configuración',
                 items: [
-                    {label: 'Crud', icon: 'pi pi-fw pi-user-edit', routerLink: ['/pages/crud']},
-                    {label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/pages/timeline']},
-                    {label: 'Landing', icon: 'pi pi-fw pi-globe', routerLink: ['pages/landing']},
-                    {label: 'Login', icon: 'pi pi-fw pi-sign-in', routerLink: ['pages/login']},
-                    {label: 'Error', icon: 'pi pi-fw pi-times-circle', routerLink: ['pages/error']},
+                    {label: 'Actividades', icon: 'pi pi-fw pi-user-edit', routerLink: ['/Actividades']},
+                    {label: 'Areas', icon: 'pi pi-fw pi-calendar', routerLink: ['/Areas']},
+                    {label: 'Maquinas', icon: 'pi pi-fw pi-globe', routerLink: ['/Maquinas']},
+                    {label: 'Usuarios', icon: 'pi pi-fw pi-sign-in', routerLink: ['/Trabajadores']},
+                    {label: 'Cerrar Sesión', icon: 'pi pi-fw pi-times-circle', routerLink: ['/logOut']},/*
                     {label: 'Not Found', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['pages/notfound']},
                     {label: 'Access Denied', icon: 'pi pi-fw pi-lock', routerLink: ['pages/access']},
-                    {label: 'Empty', icon: 'pi pi-fw pi-circle', routerLink: ['/pages/empty']}
+                    {label: 'Empty', icon: 'pi pi-fw pi-circle', routerLink: ['/pages/empty']}*/
                 ]
             },
-            {
+           /* {
                 label: 'Hierarchy',
                 items: [
                     {
@@ -121,8 +121,8 @@ export class AppMenuComponent implements OnInit {
                         ]
                     }
                 ]
-            },
-            {
+            },*/
+            /*{
                 label:'Get Started',
                 items:[
                     {
@@ -132,7 +132,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'View Source', icon: 'pi pi-fw pi-search', url: ['https://github.com/primefaces/sakai-ng'], target: '_blank'
                     }
                 ]
-            }
+            }*/
         ];
     }
 

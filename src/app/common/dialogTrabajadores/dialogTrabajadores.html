@@ -1,0 +1,58 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>{{ trabajador!=null ? 'Editar Trabajador' : 'Nuevo Trabajador'}}</h1>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="lst" [(ngModel)]="idArea"
+                    optionLabel="descripcion" optionValue="idArea"></p-dropdown>
+                <label for="dropdown">Área</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Nombre</h5>
+            <input pInputText type="text" [(ngModel)]="nombre" placeholder="Nombre Trabajador"/>
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Apellido</h5>
+            <input pInputText type="text" [(ngModel)]="apellido" placeholder="Apellido Trabajador" />
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Puesto</h5>
+            <input pInputText type="text" [(ngModel)]="puesto" placeholder="Puesto" />
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Usuario</h5>
+            <input pInputText type="text" [(ngModel)]="usuario" placeholder="Usuario" />
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Contraseña</h5>
+            <input pInputText type="text" [(ngModel)]="pass" placeholder="Contraseña" />
+        </div>
+    </div>
+    <br>
+        <div mat-dialog-actions>
+    <div class="grid formgrid">
+        <div class="col-2 mb-2 lg:col-6 lg:mb-0">
+            <button mat-raised-button color="warn" (click)="close()">Cancelar</button>
+        </div>
+        <div class="col-2 mb-2 lg:col-6 lg:mb-0">
+            <button mat-raised-button color="primary" (click)="trabajador!=null ? editTrabajador() :addTrabajador()" >Guardar</button>
+        </div>
+    </div>  
+</div>
+</mat-dialog-content>

@@ -1,0 +1,49 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>{{ actividad!=null ? 'Editar Actividad' : 'Nueva Actividad'}}</h1>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="lst" [(ngModel)]="idArea"
+                    optionLabel="descripcion" optionValue="idArea" (onClick)="getMaquinaria(idArea)"></p-dropdown>
+                <label for="dropdown">Área</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="list2" [(ngModel)]="idMaquina"
+                    optionLabel="descripcion" optionValue="idMaquina"></p-dropdown>
+                <label for="dropdown">Maquina</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Tiempo de Paro</h5>
+            <input pInputText type="text" [(ngModel)]="tiempoParo" placeholder="Hrs. en número" />
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Descripción</h5>
+            <textarea pInputTextarea [(ngModel)]="descripcion"
+                placeholder="Ingrese una descripción de la actividad, instrucciones si es necesario" autoResize rows="3"
+                cols="30"></textarea>
+        </div>      
+    </div>  
+    <br>
+        <div mat-dialog-actions>
+    <div class="grid formgrid">
+        <div class="col-2 mb-2 lg:col-6 lg:mb-0">
+            <button mat-raised-button color="warn" (click)="close()">Cancelar</button>
+        </div>
+        <div class="col-2 mb-2 lg:col-6 lg:mb-0">
+            <button mat-raised-button color="primary" (click)="actividad!=null ? editActividad() :addActividad()" >Guardar</button>
+        </div>
+    </div>  
+</div>
+</mat-dialog-content>

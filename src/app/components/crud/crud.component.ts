@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../api/product';
-import { ProductService } from '../../service/productservice';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Actividades } from 'src/app/api/actividades';
+import { dialogActividad } from 'src/app/common/actividades/dialogActividad.component';
+import { DialogDeleteComponent } from 'src/app/common/delete/dialogdelete.component';
+import { ApiActividadesService } from 'src/app/service/api-actividades.service';
+import { TagModule } from 'primeng/tag';
+
 
 @Component({
     templateUrl: './crud.component.html',
@@ -10,90 +16,106 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class CrudComponent implements OnInit {
 
-    productDialog: boolean;
+    public lst!: Actividades[];
 
-    deleteProductDialog: boolean = false;
 
-    deleteProductsDialog: boolean = false;
-
-    products: Product[];
-
-    product: Product;
-
-    selectedProducts: Product[];
-
-    submitted: boolean;
-
-    cols: any[];
-
-    statuses: any[];
+    selectedActividades:Actividades[];
 
     rowsPerPageOptions = [5, 10, 20];
 
-    constructor(private productService: ProductService, private messageService: MessageService,
-                private confirmationService: ConfirmationService) {}
+    readonly width: string='300px';
+
+    public columnas:any[]=[
+      {label: 'Código', value: 'idActividad'},
+      {label: 'Nombre Actividad', value: 'idActividad'},
+      {label: 'Área', value: 'idArea'},
+      {label: 'Cód. Máquina', value: 'idMaquina'},
+      {label: 'Recurso Humano', value: 'recursoHumano'},
+      {label: 'Descripción', value: 'descripcion'},
+      {label: 'Tiempo', value: 'tiempo'},
+      {label: 'Periodo', value: 'periodo'},
+      {label: 'Fecha Programada', value: 'fechaProgramada'},
+      {label: 'Asignada', value: 'asignada'},
+      {label: 'Acciones', value: 'actions'}
+    ]
+
+    constructor(public dialog:MatDialog,
+                public snackBar:MatSnackBar,
+                private actividadesService: ApiActividadesService, 
+                private messageService: MessageService,
+                private confirmationService: ConfirmationService,
+                ) {}
 
     ngOnInit() {
-        this.productService.getProducts().then(data => this.products = data);
+        this.getActividades();
 
-        this.cols = [
-            {field: 'name', header: 'Name'},
-            {field: 'price', header: 'Price'},
-            {field: 'category', header: 'Category'},
-            {field: 'rating', header: 'Reviews'},
-            {field: 'inventoryStatus', header: 'Status'}
-        ];
-
-        this.statuses = [
-            {label: 'INSTOCK', value: 'instock'},
-            {label: 'LOWSTOCK', value: 'lowstock'},
-            {label: 'OUTOFSTOCK', value: 'outofstock'}
-        ];
     }
 
-    openNew() {
-        this.product = {};
-        this.submitted = false;
-        this.productDialog = true;
-    }
+    getActividades(){
+        this.actividadesService.getActividades().subscribe( response=>{
+          this.lst = response.data;
+        });
+      }
 
-    deleteSelectedProducts() {
-        this.deleteProductsDialog = true;
-    }
 
-    editProduct(product: Product) {
-        this.product = {...product};
-        this.productDialog = true;
-    }
+    openAdd(){
+    const dialogRef=this.dialog.open(dialogActividad,{
+    });
+    dialogRef.afterClosed().subscribe(result=>{
+      this.getActividades();
+    });
+  }
 
-    deleteProduct(product: Product) {
-        this.deleteProductDialog = true;
-        this.product = {...product};
+  openEdit(actividad:Actividades){
+    this.actividadesService.getActividad(actividad);
+    const dialogRef=this.dialog.open(dialogActividad,{      
+    });
+    
+    dialogRef.afterClosed().subscribe(result=>{
+      this.getActividades();
+    });
+  }
+
+    deleteActividades(actividad: Actividades) {
+        
+        const dialogRef=this.dialog.open(DialogDeleteComponent,{
+            width:this.width
+          });
+          dialogRef.afterClosed().subscribe(result=>{
+            if(result===true){
+              this.actividadesService.deleteActividades(actividad.idActividad).subscribe(response=>{
+                if(response.exito === 1){
+                  this.snackBar.open('Actividad eliminada con éxito.','',{
+                    duration:2000
+                  })
+                  this.getActividades();
+                }
+              });
+            }
+          });  
     }
 
     confirmDeleteSelected(){
-        this.deleteProductsDialog = false;
-        this.products = this.products.filter(val => !this.selectedProducts.includes(val));
+       /* this.deleteProductsDialog = false;
+        this.actividades = this.actividades.filter(val => !this.selectedActividades.includes(val));
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-        this.selectedProducts = null;
+        this.selectedActividades = null;*/
     }
 
-    confirmDelete(){
+    /*confirmDelete(){
         this.deleteProductDialog = false;
-        this.products = this.products.filter(val => val.id !== this.product.id);
+        this.actividad = this.actividad.filter(val => val.id !== this.actividad.id);
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
         this.product = {};
-    }
+    }*/
 
     hideDialog() {
-        this.productDialog = false;
-        this.submitted = false;
+       // this.productDialog = false;
     }
 
     saveProduct() {
-        this.submitted = true;
 
-        if (this.product.name.trim()) {
+        /*if (this.product.name.trim()) {
             if (this.product.id) {
                 // @ts-ignore
                 this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value: this.product.inventoryStatus;
@@ -112,27 +134,6 @@ export class CrudComponent implements OnInit {
             this.products = [...this.products];
             this.productDialog = false;
             this.product = {};
-        }
-    }
-
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    createId(): string {
-        let id = '';
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
+        }*/
     }
 }

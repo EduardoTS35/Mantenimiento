@@ -1,9 +1,8 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { FormLayoutComponent } from './components/formlayout/formlayout.component';
+import { FormLayoutComponent } from './components/asignacion/formlayout.component';
 import { PanelsComponent } from './components/panels/panels.component';
-import { OverlaysComponent } from './components/overlays/overlays.component';
 import { MediaComponent } from './components/media/media.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { MiscComponent } from './components/misc/misc.component';
@@ -14,7 +13,6 @@ import { DocumentationComponent } from './components/documentation/documentation
 import { AppMainComponent } from './app.main.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
-import { TableComponent } from './components/table/table.component';
 import { ListComponent } from './components/list/list.component';
 import { TreeComponent } from './components/tree/tree.component';
 import { CrudComponent } from './components/crud/crud.component';
@@ -28,42 +26,35 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
+import { registroActividades } from './components/registroActividades/registroActividades.component';
+import { actividadesCorrectivas } from './components/actividadesCorrectivas/actividadesCorrectivas.component';
+import { AreaComponent } from './components/areas/area.component';
+import { MaquinaComponent } from './components/maquinas/maquina.component';
+import { TrabajadoresComponent } from './components/trabajadores/trabajadores.component';
+import { AuthGuard } from './security/auth.guard';
+import { LogOutComponent } from './components/logOut/logOut.component';
+import { RolGuardSupervisor } from './security/role.guard.supervisor';
+import { RolGuardAdmin } from './security/role.guard.admin';
+import { RolGuardAux } from './security/role.guard.aux';
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    {path: '', component: DashboardComponent},
-                    {path: 'uikit/formlayout', component: FormLayoutComponent},
-                    {path: 'uikit/input', component: InputComponent},
-                    {path: 'uikit/floatlabel', component: FloatLabelComponent},
-                    {path: 'uikit/invalidstate', component: InvalidStateComponent},
-                    {path: 'uikit/button', component: ButtonComponent},
-                    {path: 'uikit/table', component: TableComponent},
-                    {path: 'uikit/list', component: ListComponent},
-                    {path: 'uikit/tree', component: TreeComponent},
-                    {path: 'uikit/panel', component: PanelsComponent},
-                    {path: 'uikit/overlay', component: OverlaysComponent},
-                    {path: 'uikit/media', component: MediaComponent},
-                    {path: 'uikit/menu', loadChildren: () => import('./components/menus/menus.module').then(m => m.MenusModule)},
-                    {path: 'uikit/message', component: MessagesComponent},
-                    {path: 'uikit/misc', component: MiscComponent},
-                    {path: 'uikit/charts', component: ChartsComponent},
-                    {path: 'uikit/file', component: FileComponent},
-                    {path: 'pages/crud', component: CrudComponent},
+                    {path: '', component: DashboardComponent,canActivate:[AuthGuard]},
+                    {path: 'asignacion', component: FormLayoutComponent,canActivate:[AuthGuard]},
+                    {path: 'registroActividades', component: registroActividades,canActivate:[RolGuardSupervisor]},
+                    {path: 'Actividades', component: CrudComponent,canActivate:[RolGuardAdmin]},
                     {path: 'pages/timeline', component: TimelineComponent},
-                    {path: 'pages/empty', component: EmptyComponent},
-                    {path: 'icons', component: IconsComponent},
-                    {path: 'blocks', component: BlocksComponent},
-                    {path: 'documentation', component: DocumentationComponent}
+                    {path: 'ActividadesCorrectivas', component: actividadesCorrectivas,canActivate:[AuthGuard]},
+                    {path: 'Areas', component: AreaComponent,canActivate:[RolGuardAdmin]},
+                    {path: 'Maquinas', component: MaquinaComponent,canActivate:[RolGuardAdmin]},
+                    {path: 'Trabajadores', component: TrabajadoresComponent,canActivate:[RolGuardAdmin]},
                 ],
             },
-            {path:'pages/landing', component: LandingComponent},
             {path:'pages/login', component: LoginComponent},
-            {path:'pages/error', component: ErrorComponent},
-            {path:'pages/notfound', component: NotfoundComponent},
-            {path:'pages/access', component: AccessComponent},
+            {path:'logOut',component:LogOutComponent,canActivate:[AuthGuard]},
             {path: '**', redirectTo: 'pages/notfound'},
         ], {scrollPositionRestoration: 'enabled', anchorScrolling:'enabled'})
     ],

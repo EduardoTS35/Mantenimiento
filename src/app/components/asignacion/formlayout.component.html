@@ -1,0 +1,96 @@
+<p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <div class="my-2">
+            <button pButton pRipple label="Nueva Orden" icon="pi pi-plus" class="p-button-success mr-2" [disabled]="this.rolId===3" (click)="generarOrden()"></button>
+            <button pButton pRipple label="Cerrar Orden" icon="pi-search" class="p-button-warning" [disabled]="this.rolId===3" (click)="filtroOrden()" (click)="print()" [disabled]="ordenTrabajo == ''"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="right">
+        <div class="my-3">
+            <span class="p-float-label">
+                <p-dropdown inputId="dropdown" style="width: 120px" [autoDisplayFirst]="false" [options]="lstT" [(ngModel)]="idTrabajador"
+                    optionLabel="nombre" optionValue="idTrabajador"></p-dropdown>
+                <label for="dropdown">Trabajador</label>
+                ||
+                <input pInputText type="text" [(ngModel)]="ordenTrabajo" placeholder="Orden de Trabajo" (change)="filtroOrden()"/>
+            </span>          
+        </div>
+    </ng-template>
+</p-toolbar>
+
+
+<p-table #dt [value]="lst" [columns]="columnas" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['idActividad','nombreActividad','fechaProgramada']" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedActividades" selectionMode="multiple" [rowHover]="true" dataKey="idActividad">
+    <ng-template pTemplate="caption">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Actividades</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="idActividad">Código <p-sortIcon field="idActividad"></p-sortIcon></th>
+            <th pSortableColumn="nombreActividad">Nombre de Actividad <p-sortIcon field="nombreActividad"></p-sortIcon></th>
+
+            <th pSortableColumn="idArea">Área <p-sortIcon field="idArea"></p-sortIcon></th>
+            <th pSortableColumn="idMaquina">Cód. Máquina <p-sortIcon field="idMaquina"></p-sortIcon></th>
+
+            <th pSortableColumn="tiempo">Tiempo <p-sortIcon field="tiempo"></p-sortIcon></th>
+            <th pSortableColumn="periodo">Período <p-sortIcon field="periodo"></p-sortIcon></th>
+
+            <th pSortableColumn="fechaProgramada">Fecha Programada <p-sortIcon field="fechaProgramada"></p-sortIcon></th>
+            <th pSortableColumn="asignada">Asignada <p-sortIcon field="asignada"></p-sortIcon></th>
+
+
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-actividad>
+        <tr>
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">idActividad</span>
+                {{actividad.idActividad}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">nombreActividad</span>
+                {{actividad.nombreActividad}}
+            </td>
+
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">idArea</span>
+                {{actividad.idArea}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">idMaquina</span>
+                {{actividad.idMaquina}}
+            </td>
+
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">tiempo</span>
+                {{actividad.tiempo}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">periodo</span>
+                {{actividad.periodo}}
+            </td>
+
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">fechaProgramada</span>
+                {{actividad.fechaProgramada}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">asignada</span>
+                <p-tag *ngIf="actividad.asignada==1" value="Asignada" icon="pi pi" severity="success"></p-tag>
+                <p-tag *ngIf="actividad.asignada==0" value="Sin Asignar" icon="pi pi" severity="danger"></p-tag>
+            </td>
+
+            <td >
+                <ng-container class="flex">
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 " [disabled]="actividad.asignada===1 || this.rolId===3" (click)="asignarActividad(actividad,1)"></button>
+                    </td>
+                    
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+    
+</p-table>

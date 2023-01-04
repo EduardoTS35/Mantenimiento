@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { Product } from '../../api/product';
+//import { Product } from '../../api/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
@@ -9,7 +9,7 @@ import { ProductService } from '../../service/productservice';
 })
 export class ListComponent implements OnInit {
 
-    products: Product[];
+   // products: Product[];
 
     sortOptions: SelectItem[];
 
@@ -26,7 +26,7 @@ export class ListComponent implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProducts().then(data => this.products = data);
+        //this.productService.getProducts().then(data => this.products = data);
 
         this.sourceCities = [
             {name: 'San Francisco', code: 'SF'},

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../service/productservice';
 import { PhotoService } from '../../service/photoservice';
-import { Product } from '../../api/product';
 
 @Component({
   selector: 'app-media',
@@ -15,7 +14,7 @@ import { Product } from '../../api/product';
 })
 export class MediaComponent implements OnInit {
 
-  products: Product[];
+  //products: Product[];
 
   images: any[];
 
@@ -60,7 +59,7 @@ export class MediaComponent implements OnInit {
 
   ngOnInit() {
       this.productService.getProductsSmall().then(products => {
-          this.products = products;
+          //this.products = products;
       });
 
       this.photoService.getImages().then(images => {

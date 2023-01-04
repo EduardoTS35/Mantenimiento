@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -99,16 +99,14 @@ import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { FormLayoutComponent } from './components/formlayout/formlayout.component';
+import { FormLayoutComponent } from './components/asignacion/formlayout.component';
 import { FloatLabelComponent } from './components/floatlabel/floatlabel.component';
 import { InvalidStateComponent } from './components/invalidstate/invalidstate.component';
 import { InputComponent } from './components/input/input.component';
 import { ButtonComponent } from './components/button/button.component';
-import { TableComponent } from './components/table/table.component';
 import { ListComponent } from './components/list/list.component';
 import { TreeComponent } from './components/tree/tree.component';
 import { PanelsComponent } from './components/panels/panels.component';
-import { OverlaysComponent } from './components/overlays/overlays.component';
 import { MediaComponent } from './components/media/media.component';
 import { MenusComponent } from './components/menus/menus.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -140,6 +138,31 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
+
+import{MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import{MatSnackBarModule} from '@angular/material/snack-bar';
+import{MatCardModule} from '@angular/material/card';
+import{MatTableModule} from '@angular/material/table';
+import{MatSidenavModule}from'@angular/material/sidenav';
+
+import { DialogDeleteComponent } from './common/delete/dialogdelete.component';
+import { dialogActividad } from './common/actividades/dialogActividad.component';
+import { dialogAsignar } from './common/dialogAsignar/dialogAsignar.component';
+import { registroActividades } from './components/registroActividades/registroActividades.component';
+import { dialogRegistroActividades } from './common/dialogRegistroActividades/dialogRegistroActividades';
+import{actividadesCorrectivas} from './components/actividadesCorrectivas/actividadesCorrectivas.component';
+import { dialogActividadesCorrectivas } from './common/dialogActividadesCorrectivas/dialogActividadesCorrectivas.component';
+import { AreaComponent } from './components/areas/area.component';
+import { MaquinaComponent } from './components/maquinas/maquina.component';
+import { TrabajadoresComponent } from './components/trabajadores/trabajadores.component';
+import { dialogArea } from './common/dialogAreas/dialogArea.component';
+import { dialogMaquinas } from './common/dialogMaquinas/dialogMaquinas.component';
+import { dialogTrabajadores } from './common/dialogTrabajadores/dialogTrabajadores';
+import { JwtInterceptor } from './security/jwt.interceptor';
+import { LogOutComponent } from './components/logOut/logOut.component';
+
 
 @NgModule({
     imports: [
@@ -230,6 +253,20 @@ import { AccessComponent } from './components/access/access.component';
         VirtualScrollerModule,
         AppCodeModule,
         StyleClassModule,
+
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatTableModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatCardModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     declarations: [
         AppComponent,
@@ -245,11 +282,9 @@ import { AccessComponent } from './components/access/access.component';
         InvalidStateComponent,
         InputComponent,
         ButtonComponent,
-        TableComponent,
         ListComponent,
         TreeComponent,
         PanelsComponent,
-        OverlaysComponent,
         MenusComponent,
         MessagesComponent,
         MessagesComponent,
@@ -273,8 +308,25 @@ import { AccessComponent } from './components/access/access.component';
         ErrorComponent,
         NotfoundComponent,
         AccessComponent,
+
+        DialogDeleteComponent,
+        CrudComponent,
+        dialogActividad,
+        dialogAsignar,
+        registroActividades,
+        dialogRegistroActividades,
+        actividadesCorrectivas,
+        dialogActividadesCorrectivas,
+        AreaComponent,
+        MaquinaComponent,
+        TrabajadoresComponent,
+        dialogArea,
+        dialogMaquinas,
+        dialogTrabajadores,
+        LogOutComponent
     ],
     providers: [
+        {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor, multi:true},
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, ConfigService

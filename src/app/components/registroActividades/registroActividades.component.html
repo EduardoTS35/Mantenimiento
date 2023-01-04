@@ -1,0 +1,62 @@
+<p-table #dt [value]="lst" [columns]="columnas" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['idActividad','nombreActividad','idOrden']" [rows]="50" [paginator]="true" [rowsPerPageOptions]="[30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {last} to {first} of {totalRecords} entries" [(selection)]="selectedActividades" selectionMode="multiple" [rowHover]="true" dataKey="idActividad">
+    <ng-template pTemplate="caption">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Actividades</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">Cód. Serial <p-sortIcon field="idOrden"></p-sortIcon></th>
+			<th pSortableColumn="idOrden">Cód. Orden <p-sortIcon field="idOrden"></p-sortIcon></th>
+            <th pSortableColumn="idActividad">Cód. Actividad <p-sortIcon field="idActividad"></p-sortIcon></th>
+            <th pSortableColumn="nombreActividad">Actividad <p-sortIcon field="nombreActividad"></p-sortIcon></th>
+
+
+            <th pSortableColumn="fechaProgramada">Fecha Programada <p-sortIcon field="fechaProgramada"></p-sortIcon></th>
+
+
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-actividad>
+        <tr *ngIf="actividad.fechaRealizacion==null">
+            <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Cod. Serial</span>
+                {{actividad.id}}
+            </td>
+			<td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Cod. Orden</span>
+                {{actividad.idOrden}}
+            </td>
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">idActividad</span>
+                {{actividad.idActividad}}
+            </td>
+			<td style="width:14%; min-width:10rem;"><span class="p-column-title">idActividad</span>
+                {{actividad.idActividadNavigation.nombreActividad}}
+            </td>
+
+
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">fechaProgramada</span>
+                {{actividad.fechaProgramada}}
+            </td>
+
+            <td >
+                <ng-container class="flex">
+                    <td>
+                        <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded mr-2 mb-2" (click)="openEdit(actividad)" (click)="getActividad(actividad.idActividadNavigation)"></button>
+                    </td>
+                    
+                    <td>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteActividades(actividad)"></button>
+                    </td>
+                    
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+    
+</p-table>

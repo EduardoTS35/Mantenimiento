@@ -1,0 +1,44 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>{{ this.maquina!=null ? 'Editar Maquina' : 'Nueva Maquina'}}</h1>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="lst" [(ngModel)]="idArea"
+                    optionLabel="descripcion" optionValue="idArea"></p-dropdown>
+                <label for="dropdown">Área</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Nombre Maquina</h5>
+            <input pInputText type="text" [(ngModel)]="descripcion"placeholder="Nombre de Maquina"/>
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Modelo</h5>
+            <input pInputText type="text" [(ngModel)]="modelo" placeholder="Modelo" />
+        </div>
+    </div>
+    <br>
+    <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <h5>Núm. Serie</h5>
+            <input pInputText type="text" [(ngModel)]="numeroSerie" placeholder="Núm. Serie" />
+        </div>
+    </div>
+    
+        <div mat-dialog-actions>
+    <div class="grid formgrid">
+        <div class="col-2 mb-2 lg:col-6 lg:mb-0">
+            <button mat-raised-button color="warn" (click)="close()">Cancelar</button>
+        </div>
+        <div class="col-2 mb-2 lg:col-6 lg:mb-0">
+            <button mat-raised-button color="primary" (click)="this.maquina!=null ? editMaquina() : addMaquina()" >Guardar</button>
+        </div>
+    </div>  
+</div>
+</mat-dialog-content>
