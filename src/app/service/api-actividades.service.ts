@@ -15,7 +15,7 @@ const httpOption={
   })
   export class ApiActividadesService {
   
-    url:string = 'https://localhost:443/api/Actividades';
+    url:string = 'http://smantenimientosh-001-site1.htempurl.com/api/Actividades';
     public Actividad:Actividades;
   
     constructor(

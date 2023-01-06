@@ -15,7 +15,7 @@ const httpOption={
   })
   export class ApiAreaService {
   
-    url:string = 'https://localhost:443/api/Area';
+    url:string = 'http://smantenimientosh-001-site1.htempurl.com/api/Area';
     area:Areas;
   
     constructor(

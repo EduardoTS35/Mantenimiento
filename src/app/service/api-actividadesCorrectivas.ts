@@ -15,7 +15,7 @@ const httpOption={
   })
   export class ApiActividadesCorrectivas {
   
-    url:string = 'http://localhost:443/api/ActividadesCorrectivas';
+    url:string = 'http://smantenimientosh-001-site1.htempurl.com/api/ActividadesCorrectivas';
     public actividadesCorrectivas:ActividadesCorrectivas;
   
     constructor(

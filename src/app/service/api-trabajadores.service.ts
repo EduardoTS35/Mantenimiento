@@ -16,7 +16,7 @@ const httpOption={
   })
   export class ApiTrabajadorService {
   
-    url:string = 'http://localhost:443/api/Trabajadores';
+    url:string = 'http://smantenimientosh-001-site1.htempurl.com/api/Trabajadores';
     trabajador:Trabajadores;
   
     constructor(

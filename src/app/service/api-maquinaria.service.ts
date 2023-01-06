@@ -16,7 +16,7 @@ const httpOption={
   })
   export class ApiMaquinariaService {
   
-    url:string = 'https://localhost:443/api/Maquinaria';
+    url:string = 'http://smantenimientosh-001-site1.htempurl.com/api/Maquinaria';
     maquina: Maquinas;
   
     constructor(

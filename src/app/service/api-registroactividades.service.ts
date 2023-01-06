@@ -17,8 +17,8 @@ const httpOption={
   })
   export class ApiRegistroActividadesService {
   
-    url:string = 'http://localhost:443/api/RegistroActividades';
-    url2:string='http://localhost:443/api/RegistroA2';
+    url:string = 'http://smantenimientosh-001-site1.htempurl.com/api/RegistroActividades';
+    url2:string='http://smantenimientosh-001-site1.htempurl.com/api/RegistroA2';
     public id?:number;
     public idOrden?:string;
     public idActividad?:number;
