@@ -10,5 +10,14 @@ export interface Actividades{
    periodo?:number;
    fechaProgramada?:Date;
    asignada?:number;
+   
+   idMaquinaNavigation?:{
+      idMaquina:number,
+      idArea:number,
+      descripcion:string,
+      modelo:string,
+      añoFabricacion:number,
+      numeroSerie:string
 
+   }
 }

@@ -26,7 +26,7 @@
             <th pSortableColumn="nombreActividad">Nombre de Actividad <p-sortIcon field="nombreActividad"></p-sortIcon></th>
 
             <th pSortableColumn="idArea">Área <p-sortIcon field="idArea"></p-sortIcon></th>
-            <th pSortableColumn="idMaquina">Cód. Máquina <p-sortIcon field="idMaquina"></p-sortIcon></th>
+            <th pSortableColumn="descMaquina">Desc. Máquina <p-sortIcon field="descMaquina"></p-sortIcon></th>
 
             <th pSortableColumn="tiempo">Tiempo <p-sortIcon field="tiempo"></p-sortIcon></th>
             <th pSortableColumn="periodo">Período <p-sortIcon field="periodo"></p-sortIcon></th>
@@ -55,8 +55,8 @@
                 {{actividad.idArea}}
             </td>
             <td style="width:14%; min-width:10rem;">
-                <span class="p-column-title">idMaquina</span>
-                {{actividad.idMaquina}}
+                <span class="p-column-title">descMaquina</span>
+                {{actividad.idMaquinaNavigation.descripcion}}
             </td>
 
             <td style="width:14%; min-width:10rem;"><span class="p-column-title">tiempo</span>

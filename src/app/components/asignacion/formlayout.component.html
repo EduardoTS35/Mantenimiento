@@ -8,7 +8,7 @@
     <ng-template pTemplate="right">
         <div class="my-3">
             <span class="p-float-label">
-                <p-dropdown inputId="dropdown" style="width: 120px" [autoDisplayFirst]="false" [options]="lstT" [(ngModel)]="idTrabajador"
+                <p-dropdown aria-label="combo" inputId="dropdown" style="width: 120px" [autoDisplayFirst]="false" [options]="lstT" [(ngModel)]="idTrabajador"
                     optionLabel="nombre" optionValue="idTrabajador"></p-dropdown>
                 <label for="dropdown">Trabajador</label>
                 ||
@@ -35,7 +35,7 @@
             <th pSortableColumn="nombreActividad">Nombre de Actividad <p-sortIcon field="nombreActividad"></p-sortIcon></th>
 
             <th pSortableColumn="idArea">Área <p-sortIcon field="idArea"></p-sortIcon></th>
-            <th pSortableColumn="idMaquina">Cód. Máquina <p-sortIcon field="idMaquina"></p-sortIcon></th>
+            <th pSortableColumn="descMaquina">Desc. Máquina <p-sortIcon field="descMaquina"></p-sortIcon></th>
 
             <th pSortableColumn="tiempo">Tiempo <p-sortIcon field="tiempo"></p-sortIcon></th>
             <th pSortableColumn="periodo">Período <p-sortIcon field="periodo"></p-sortIcon></th>
@@ -61,8 +61,8 @@
                 {{actividad.idArea}}
             </td>
             <td style="width:14%; min-width:10rem;">
-                <span class="p-column-title">idMaquina</span>
-                {{actividad.idMaquina}}
+                <span class="p-column-title">descMaquina</span>
+                {{actividad.idMaquinaNavigation.descripcion}}
             </td>
 
             <td style="width:14%; min-width:10rem;"><span class="p-column-title">tiempo</span>
@@ -85,7 +85,7 @@
             <td >
                 <ng-container class="flex">
                     <td>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 " [disabled]="actividad.asignada===1 || this.rolId===3" (click)="asignarActividad(actividad,1)"></button>
+                        <button title="Asignar" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 " [disabled]="actividad.asignada===1" (click)="asignarActividad(actividad,1)"></button>
                     </td>
                     
                 </ng-container>

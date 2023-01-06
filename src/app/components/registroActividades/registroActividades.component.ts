@@ -1,10 +1,12 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { Table } from "primeng/table";
 import { Actividades } from "src/app/api/actividades";
 import { RegistroActividades } from "src/app/api/registroActividades";
 import { RegistroActividades2 } from "src/app/api/registroActividades2";
+import { DialogDeleteComponent } from "src/app/common/delete/dialogdelete.component";
 import { dialogRegistroActividades } from "src/app/common/dialogRegistroActividades/dialogRegistroActividades";
 import { ApiActividadesService } from "src/app/service/api-actividades.service";
 import { ApiRegistroActividadesService } from "src/app/service/api-registroactividades.service";
@@ -40,6 +42,10 @@ export class registroActividades implements OnInit{
 
     readonly width: string='300px';
 
+    actividades:Actividades[];
+
+    actividad2:Actividades;
+
     public columnas:any[]=[
       {label: 'Código', value: 'idActividad'},
       {label: 'Nombre Actividad', value: 'idActividad'},
@@ -55,7 +61,7 @@ export class registroActividades implements OnInit{
     ]
 
     constructor(public dialog:MatDialog,
-                //public snackBar:MatSnackBar,
+                public snackBar:MatSnackBar,
                 private actividadesService: ApiRegistroActividadesService, 
                 private messageService: MessageService,
                 private confirmationService: ConfirmationService,
@@ -105,23 +111,52 @@ export class registroActividades implements OnInit{
     });
   }
 
-    /*deleteActividades(actividad: Actividades) {
-        const dialogRef=this.dialog.open(DialogDeleteComponent,{
+    deleteActividades(actividad: RegistroActividades2) {
+        /*const dialogRef=this.dialog.open(DialogDeleteComponent,{
             width:this.width
           });
           dialogRef.afterClosed().subscribe(result=>{
             if(result===true){
-              this.actividadesService.deleteActividades(actividad.idActividad).subscribe(response=>{
+              this.actividadService.getActividades().subscribe( response=>{
+                this.actividades = response.data;
+              });
+              const filtoActividad=this.actividades.filter(actividad=>
+                actividad.idActividad===this.actividad.idActividad
+                );
+
+                filtoActividad.forEach(element => {
+                  this.actividad2.idActividad=element.idActividad,
+                  this.actividad2.idArea=element.idArea,
+                  this.actividad2.idMaquina= element.idMaquina,
+                  this.actividad2.nombreActividad=element.nombreActividad,  
+                  this.actividad2.recursoHumano= element.recursoHumano,
+                  this.actividad2.descripcion= element.descripcion,
+                  this.actividad2.tiempo= element.tiempo,
+                  this.actividad2.periodo= element.periodo,
+                  this.actividad2.fechaProgramada= element.fechaProgramada,
+                  this.actividad2.asignada= 0
+                });
+
+                this.actividadService.editActividades(this.actividad2).subscribe(response=>{
+                  if(response.exito === 1){
+                    this.snackBar.open('Actividad corregida con exito.','',{
+                      duration:2000
+                    })
+                    this.getActividades();
+                  }
+                });
+
+              this.actividadesService.deleteActividades(this.actividad.id).subscribe(response=>{
                 if(response.exito === 1){
-                  this.snackBar.open('Actividad eliminada con éxito.','',{
+                  this.snackBar.open('Actividad corregida con exito.','',{
                     duration:2000
                   })
                   this.getActividades();
                 }
               });
             }
-          });  
-    }*/
+          });  */
+    }
 
     confirmDeleteSelected(){
        /* this.deleteProductsDialog = false;
